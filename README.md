@@ -8,8 +8,8 @@
 ## Ini Yang ada di sini
 | Command | Description |
 | --- | --- |
-| `Catatan Harian` | Di sini kebanyakan cuman **catatan CCIT** |
-| `Tugas` | Untuk Ini cuman  **pas mood nya aja** staged :stuck_out_tongue_winking_eye:, jadi jangan minta doang :v |
+| `Catatan` | Di sini kebanyakan cuman **catatan CCIT** |
+| `Tugas` | Untuk Ini cuman  **pas mood nya aja** staged :stuck_out_tongue_winking_eye:, jadi jangan minta doang :v [Tugas](tugas/ccit/dashboard.md) |
 
 
 
