@@ -8,8 +8,8 @@
 ## Ini Yang ada di sini
 | Command | Description |
 | --- | --- |
-| `git status` | List all *new or modified* files |
-| `git diff` | Show file differences that **haven't been** staged |
+| `Catatan Harian` | Di sini kebanyakan cuman **catatan CCIT** |
+| `Tugas` | Untuk Ini cuman  **pas mood nya aja** staged :stuck_out_tongue_winking_eye:, jadi jangan minta doang :v |
 
 
 
