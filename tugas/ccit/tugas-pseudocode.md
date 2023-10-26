@@ -26,13 +26,11 @@ begin
     Welcome1: 
         display "Silahkan Masukkan Input"
 
-    accept nAngka1, nAngka2, nResult, 
+    accept nAngka1, nAngka2, nResult
 
-    switch (nAngka1, nAngka2, nResult,)
+    switch (nAngka1, nAngka2, nResult)
         begin 
             case penjumlahan : 
-
-                display "massukkan angka"
                 compute nResult as (nAngka1 + nAngka2) 
 
                 display nResult "Masih ingin menggunakan Kalkulator?"
@@ -47,8 +45,6 @@ begin
             break
 
             case pengurangan : 
-
-                display "massukkan angka"
                 compute nResult as (nAngka1 - nAngka2) 
 
                 display nResult "Masih ingin menggunakan Kalkulator?"
@@ -63,8 +59,6 @@ begin
             break
 
             case perkalian : 
-
-                display "massukkan angka"
                 compute nResult as (nAngka1 * nAngka2) 
 
                 display nResult "Masih ingin menggunakan Kalkulator?"
@@ -78,8 +72,6 @@ begin
             break
 
             case pembagian : 
-
-                display "massukkan angka"
                 
                 KembaliInputBagi: 
                     display "Tidak bisa di bagi dan harap masukkan angka dengan benar"
