@@ -1,18 +1,19 @@
 ## Welcome to DASHBOARD Tugas
 
 
-# Buatlah psuedocode dan flowchart untuk aplikasi kalkulator sederhana (+,-,/,*)
-# Tampilkan fitur kalkulator pada user 
-# Lakukan sesuai fiturnya dan selesai dengan fitur yang ada
-# Setelah User melakukan fitur, mau make lagi kalkulator nya dan kalau mau tampilkan 
-# END
+- Buatlah psuedocode dan flowchart untuk aplikasi kalkulator sederhana (+,-,/,*)
+- Tampilkan fitur kalkulator pada user 
+- Lakukan sesuai fiturnya dan selesai dengan fitur yang ada
+- Setelah User melakukan fitur, mau make lagi kalkulator nya dan kalau mau tampilkan 
+- END
 
-## Tricky : 
-# 1. Hati-hati pada fitur pembagian karena kalau pembaginya 0 maka munculkan display " tidak bisa bisa dibagi"
-# 2. mau mengulangi kalkulator Y dan N, menggunakan character khusus 
+---
+# Tricky : 
+- 1. Hati-hati pada fitur pembagian karena kalau pembaginya 0 maka munculkan display " tidak bisa bisa dibagi"
+- 2. mau mengulangi kalkulator Y dan N, menggunakan character khusus 
 
 
-## HASIL TUGAS : 
+# HASIL TUGAS : 
 
 
 ```
