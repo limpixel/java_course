@@ -1,5 +1,5 @@
-<div  id="header" width="50%" border-radius="20px" align="center">
-  <img src="https://i.pinimg.com/originals/43/1b/eb/431bebcd4497e7ebaf143d26a53aaf5d.gif" width="50%"/>
+<div  id="header" width="100%" height="50%" border-radius="20px" align="center">
+  <img src="https://i.pinimg.com/originals/43/1b/eb/431bebcd4497e7ebaf143d26a53aaf5d.gif" width="100%" height="50%"/>
 </div>
 
 ---
@@ -7,7 +7,7 @@
 | Command | Description |
 | --- | --- |
 | `Catatan` | Di sini kebanyakan cuman **catatan CCIT** |
-| `Tugas` | [Tugas DISINI](tugas/ccit/dashboard.md) dan Untuk Ini cuman  **pas mood nya aja** staged :stuck_out_tongue_winking_eye: |
+| `Tugas` | [Tugas DISINI](tugas/ccit/dashboard.md) dan Untuk Ini cuman  **pas mood nya aja** :shit: :stuck_out_tongue_winking_eye: |
 
 ---
 **NOTE**
