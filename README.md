@@ -7,7 +7,7 @@
 | Command | Description |
 | --- | --- |
 | `Catatan` | Di sini kebanyakan cuman **catatan CCIT** |
-| `Tugas` | [Tugas DISINI](tugas/ccit/dashboard.md) dan Untuk Ini cuman  **pas mood nya aja** staged :stuck_out_tongue_winking_eye: |
+| `Tugas` | [Tugas DISINI](tugas/ccit/dashboard.md) dan Untuk Ini cuman  **pas mood nya aja** :staged: :stuck_out_tongue_winking_eye: |
 
 ---
 **NOTE**
