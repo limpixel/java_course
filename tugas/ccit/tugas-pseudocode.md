@@ -18,7 +18,7 @@
 
 ```
 begin 
-    numeric nAngka1, nAngka2, nResult, nNo, nYes
+    numeric nAngka1, nAngka2, nResult, nPilihan = "Yes"
 
     
     display "Silahkan Masukkan Input"
@@ -26,49 +26,55 @@ begin
     Welcome1: 
         display "Silahkan Masukkan Input"
 
-    accept nAngka1, nAngka2, nResult
+    accept nAngka1, nAngka2, nResult, nPilihan
 
     switch (nAngka1, nAngka2, nResult)
         begin 
             case penjumlahan : 
+
                 compute nResult as (nAngka1 + nAngka2) 
 
-                display nResult "Masih ingin menggunakan Kalkulator?"
+                display "Hasil :" nResult "Dan Masih ingin menggunakan Kalkulator?"
 
-                switch (nNo, nYes)
-                    case nYes : 
+                if(nPilihan == "Yes" ) 
+                    begin 
                         goto Welcome1
-                    case no : 
-                        display "Terima kasih sudah menggunakna kalkulator"
-                break
+                    end
+                else 
+                    display "Terima kasih sudah menggunakna kalkulator"
+                endif
+
+                
 
             break
 
             case pengurangan : 
                 compute nResult as (nAngka1 - nAngka2) 
 
-                display nResult "Masih ingin menggunakan Kalkulator?"
+                display "Hasil :" nResult "Dan Masih ingin menggunakan Kalkulator?"
 
-                switch (nNo, nYes)
-                    case nYes : 
+                if(nPilihan == "Yes" ) 
+                    begin 
                         goto Welcome1
-                    case no : 
-                        display "Terima kasih sudah menggunakna kalkulator"
-                break
+                    end
+                else 
+                    display "Terima kasih sudah menggunakna kalkulator"
+                endif
 
             break
 
             case perkalian : 
                 compute nResult as (nAngka1 * nAngka2) 
 
-                display nResult "Masih ingin menggunakan Kalkulator?"
+                display "Hasil :" nResult "Dan Masih ingin menggunakan Kalkulator?"
 
-                switch (nNo, nYes)
-                    case nYes : 
+                if(nPilihan == "Yes" ) 
+                    begin 
                         goto Welcome1
-                    case no : 
-                        display "Terima kasih sudah menggunakna kalkulator"
-                break
+                    end
+                else 
+                    display "Terima kasih sudah menggunakna kalkulator"
+                endif
             break
 
             case pembagian : 
@@ -76,26 +82,30 @@ begin
                 KembaliInputBagi: 
                     display "Tidak bisa di bagi dan harap masukkan angka dengan benar"
 
-                if(nAngka1 <= 0 OR nAngka <= 0)
+                if(nAngka1 == 0 OR nAngka == 0)
                     begin
                         goto KembaliInputBagi                         
                     end
                 else
                     begin 
-                        compute nResult as (nAngka1 + nAngka2) 
+                        compute nResult as (nAngka1 / nAngka2) 
                     end
                 endif
 
-                display nResult "Masih ingin menggunakan Kalkulator?"
+                display "Hasil :" nResult "Dan Masih ingin menggunakan Kalkulator?"
 
-                switch (nNo, nYes)
-                    case nYes : 
+                if(nPilihan == "Yes" ) 
+                    begin 
                         goto Welcome1
-                    case no : 
-                        display "Terima kasih sudah menggunakna kalkulator"
-                break
+                    end
+                else 
+                    display "Terima kasih sudah menggunakna kalkulator"
+                endif
 
             break
+
+            default : 
+                display "Terima Kasih sudah menggunakan kalkulator"
 
         end
     end 
