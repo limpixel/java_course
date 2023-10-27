@@ -3,9 +3,11 @@
 
 
 </div>
-<div align="center">
-    **TUGAS KERJAIN, H-1 BARU NGEH:smiling_imp::skull:**
-</div>
 
+---
+
+<div align="center">
+    TUGAS KERJAIN, H-1 BARU NGEH:smiling_imp::skull:
+</div>
 
 ---
