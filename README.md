@@ -12,11 +12,7 @@
 ---
 **NOTE**
 
-JANGAN NYUSAHIN KON*** :cursing_face::cursing_face::cursing_face:.
-
-
-
-
+GA NGERJAIN, YA JANGAN NYUSAHIN  :cursing_face::cursing_face::cursing_face:.
 
 ---
 ### :accessibility: Credit :
