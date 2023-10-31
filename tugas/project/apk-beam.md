@@ -28,7 +28,7 @@
 ### OPTION LOGIN PSUEDOCODE
 
 ```
-    procedure login_Option
+    function login_Option
     begin 
         numeric nUser
         accept nUser
