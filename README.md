@@ -1,5 +1,5 @@
 <div  id="header" width="100%" height="50%" border-radius="20px" align="center">
-  <img src="https://i.pinimg.com/originals/43/1b/eb/431bebcd4497e7ebaf143d26a53aaf5d.gif" width="100%" height="50%"/>
+  <img src="https://i.pinimg.com/originals/f4/0c/56/f40c564a99cef0c0e003ab59f0e74da9.jpg" width="100%" height="50%"/>
 </div>
 
 ---
@@ -12,11 +12,7 @@
 ---
 **NOTE**
 
-JANGAN NYUSAHIN KON*** :cursing_face::cursing_face::cursing_face:.
-
-
-
-
+GA NGERJAIN, YA JANGAN NYUSAHIN  :cursing_face::cursing_face::cursing_face:.
 
 ---
 ### :accessibility: Credit :
