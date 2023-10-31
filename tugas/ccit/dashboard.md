@@ -1,7 +1,5 @@
 <div id="header" width="30%" align="center">
     <img src="https://octodex.github.com/images/minion.png" width="30%%" />
-
-
 </div>
 
 
