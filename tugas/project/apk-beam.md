@@ -28,7 +28,7 @@
 ### OPTION LOGIN PSUEDOCODE
 
 ```
-    function login_Option
+    procedure login_Option
     begin 
         numeric nUser
         accept nUser
@@ -49,7 +49,7 @@
 ---
 ### LOGIN GOOGLE ACOUNT
 ```
-    procedure proLogin_Google
+    function proLogin_Google
     begin
     
         character nAccountGoogle, nGmail, nGmailDatabase
@@ -82,7 +82,7 @@
 ---
 ### LOGIN PHONE NUMBER
 ```
-    procedure login_phone
+    function login_phone
     begin 
         numeric nPhone, nVerify, nNation = +62, 
         
