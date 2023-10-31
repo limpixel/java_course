@@ -385,16 +385,15 @@
                         display nHarga, nBeamStatus, nTarif 
                         
                         switch (nHarga, nBeamStatus, nTarif )
-                            case qrCode :
-                                begin 
+                            begin 
+                                case qrCode :
                                     if(nBeam == nQrCode) 
-                                        display nTarif, nWaktu, 
+                                        begin 
+                                            display nTarif, nWaktu, 
 
-                                        switch (nUser)
-                                            begin 
-                                                case akhiri: 
-                                                    begin 
-
+                                            switch (nUser)
+                                                begin 
+                                                    case akhiri: 
                                                         numeric statusHelm = true, nHargaTotal, nHargaBuka = 1.750, nWaktuMenit = 60
                                                         accept nHargaTotal, nHargaBuka, statusHelm, nWaktuMenit
 
@@ -416,30 +415,33 @@
                                                             end
                                                         endif
 
-                                                        label akhir : 
-                                                            compute nHargaTotal as ( nHargaBuka * nWaktuMenit + nHarga ) 
-
-                                                            compute nHargaTotal - nSaldo 
-
-                                                            call mainPage
                                                         break
-                                                    end
-                                                default : 
-                                                    begin
+
+                                                    label akhir : 
+                                                        compute nHargaTotal as ( nHargaBuka * nWaktuMenit + nHarga ) 
+
+                                                        compute nHargaTotal - nSaldo 
+
+                                                        call mainPage
+
+                                                        break
+                                                    default : 
                                                         display nHarga, nBeamStatus, nTarif, nWaktu
                                                         
-                                                        break
-                                                    end
-                                            end
+                                                end
+                                        end
                                     endif
-                                end
-                            case dering :
-                                begin 
-                                    display "beam anda berbunyi Saya di sini" 
+
                                     break
-                                end
-                            default : 
-                                display nBeam
+
+                                case dering :
+                                     display "beam anda berbunyi Saya di sini" 
+                                     break
+                                default : 
+                                    display nBeamNear
+                            end
+                            
+                        
 
                     else 
                         display "QR Tidak Cocok "
