@@ -421,7 +421,7 @@
 
                                                             compute nHargaTotal - nSaldo 
 
-                                                            goto Home 
+                                                            call mainPage
                                                         break
                                                     end
                                                 default : 
