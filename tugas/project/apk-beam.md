@@ -110,6 +110,7 @@ Psuedocode :
 ```
     function login_phone
     begin 
+
         character nDatabase, nPhone, nVerify, nNationPhoneCode, 
         
         label Error : 
@@ -438,92 +439,67 @@ Psuedocode :
 ```
     procedure nQrCode
     begin 
-        numeric nCamera, nQrID, nBeamID
+        numeric nCamera, nQrID, nBeamID, nWaktu, nTarif, nBeamStatus = false
 
         display "Scan QR Pada Beam"
-        accept nCamera, nQrID, nBeamID
-
-        if(nQrID == nBeamID)
+        accept nCamera, nQrID, nBeamID, nWaktu, nTarif, nBeamStatus
+        
+        if(nSaldo >= "Rp 20.000")
             begin 
-                display nQrCode
-                
-                if(nSaldo >= "Rp 20.000")
-                    if (nQrCode == nBeam )
-                        display nHarga, nBeamStatus, nTarif 
-                        
-                        switch (nHarga, nBeamStatus, nTarif )
+                if (nQrCode == nBeamID )
+                    begin 
+                        <!-- display nBeamStatus, nTarif, nWaktu,  -->
+
+                        // Switch Akhiri atau lanjut
+                        switch (nUser)
                             begin 
-                                case qrCode :
-                                    if(nBeam == nQrCode) 
+                                case akhiri: 
+                                    numeric statusHelm = true, nHargaTotal, nHargaBuka = 1.750, nWaktuMenit 
+                                    accept nHargaTotal, nHargaBuka, statusHelm, nWaktuMenit
+
+                                    display "Silahkan kembalikan helm di tempat"
+
+                                    if(nStatusHelm == true)
+                                        begin
+                                            goto akhir
+                                        end
+                                    else
                                         begin 
-                                            display nTarif, nWaktu, 
+                                            display "apakah kamu sudah mengembalikkan helm?"
 
-                                            switch (nUser)
-                                                begin 
-                                                    case akhiri: 
-                                                        numeric statusHelm = true, nHargaTotal, nHargaBuka = 1.750, nWaktuMenit = 60
-                                                        accept nHargaTotal, nHargaBuka, statusHelm, nWaktuMenit
-
-                                                        display "Silahkan kembalikan helm di tempat"
-
-                                                        if(nStatusHelm == true)
-                                                            begin
-                                                                goto akhir
-                                                            end
-                                                        else
-                                                            begin 
-                                                                display "apakah kamu sudah mengembalikkan helm?"
-
-                                                                if(nStatus == true)
-                                                                    begin
-                                                                        goto akhir
-                                                                    end
-                                                                endif
-                                                            end
-                                                        endif
-
-                                                        break
-
-                                                    label akhir : 
-                                                        compute nHargaTotal as ( nHargaBuka * nWaktuMenit + nHarga ) 
-
-                                                        compute nHargaTotal - nSaldo 
-
-                                                        call mainPage
-
-                                                        break
-                                                    default : 
-                                                        display nHarga, nBeamStatus, nTarif, nWaktu
-                                                        
+                                            if(nStatus == true)
+                                                begin
+                                                    goto akhir
                                                 end
+                                            endif
                                         end
                                     endif
 
+
+                                    label akhir : 
+                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+
+                                        compute nHargaTotal - nSaldo 
+
+                                        call mainPage
+
                                     break
 
-                                case dering :
-                                     display "beam anda berbunyi Saya di sini" 
-                                     break
                                 default : 
-                                    display nBeamNear
-                            end
-                            
-                        
-
-                    else 
-                        display "QR Tidak Cocok "
-                    endif
+                                    display nBeamStatus, nTarif, nWaktu
+                            end // end switch    
+                    end // endif begin
                 else 
-                    display "Harap isi saldo anda"
-                endif
+                    begin 
+                        display "QR Tidak Cocok "
+                    end
+                endif // endif nQrCode == nBeamID
             end
-        
         else 
-            begin 
-                display "Beam ID tidak terdaftar"
+            begin
+                display "Harap isi saldo anda"
             end
-
-        endif
+        endif // endif nSaldo >= "Rp 20.000"
 
     end 
 ```
@@ -539,4 +515,15 @@ Psuedocode :
         accept nEmail, nfirstName, nLastName
 
     end
+```
+
+--- 
+
+### DATABASE PROCEDURE 
+```
+    procedure nDatabase
+    begin 
+        character nName[10]
+    end
+
 ```
