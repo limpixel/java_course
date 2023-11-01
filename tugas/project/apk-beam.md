@@ -105,6 +105,8 @@ Flowchart :
 ```
 ---
 ### LOGIN PHONE NUMBER
+
+Psuedocode : 
 ```
     function login_phone
     begin 
@@ -136,7 +138,6 @@ Flowchart :
                     end
                 else 
                     begin 
-                        
                         goto Error
                     end
                 endif
@@ -228,10 +229,10 @@ Flowchart :
 ### Top Up Saldo 
 ```
     // producer input kartu kredit atau debit
-    procedure InputKartu (input character, input numeric, input numeric, input character)
+    procedure InputKartu (input numeric, input numeric, input numeric, input character)
 
     //procedure untuk Active kan 
-    proceudre Active (output character, output numeric, output numeric, output character)
+    proceudre Active (input character, input numeric, input numeric, input character)
 
     
 
@@ -259,7 +260,8 @@ Flowchart :
 
                     if(nMethodPayment == "Kartu Kredit")
                         begin 
-                            numeric nNomorKartu, nExpiredDate, nCVV, nNameOwner
+                            numeric nNomorKartu, nExpiredDate, nCVV, 
+                            character nNameOwner
                             
                             if(nKartu == "")
                                 begin 
