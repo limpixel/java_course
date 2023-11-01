@@ -7,22 +7,31 @@
 ---
 ### Welcome Page
 ---
+
+Psuedocode
 ```
     procedure login_Option 
     begin 
-        switch ()
+        character nOtpion
+        accept nOtpion
+        
+        display "Selamat datang di Beam"
+
+        switch (nOtpion)
             begin
                 case lanjut : 
                     call login_Option
                     break
                 default : 
-                    display "Selamat datang di Beam"
+                    
                     display "Bergabunglah sekarang untuk berkeliling kota dengan cara paling seru, terjangkau, dan ramah lingkungan"
-                    break
             end
 
     end
 ```
+
+Flowchart : 
+
 
 ---
 ### OPTION LOGIN PSUEDOCODE
@@ -30,9 +39,9 @@
 ```
     procedure login_Option
     begin 
-        numeric nUser
-        accept nUser
-        switch(nUser)
+        numeric nOption
+        accept nOption
+        switch(nOption)
             begin 
                 case login : 
                     call proLogin_Google
@@ -49,13 +58,13 @@
 ---
 ### LOGIN GOOGLE ACOUNT
 ```
-    function proLogin_Google
+    procedure proLogin_Google
     begin
     
         character nAccountGoogle, nGmail, nGmailDatabase
-        accept nAccountGoogle, nGmail, nGmailDatabase
 
         display "Silahkan pilih akun google untuk melanjutkan ke beam"
+        accept nAccountGoogle, nGmail, nGmailDatabase
         display nAccountGoogle
 
         if(nAccountGoogle == nGmailDatabase )
@@ -72,10 +81,25 @@
             end
         else 
             begin 
-                display "Harap membuat dulu untuk google akun terlebih dahulu"
+                display "Silahkan pilih akun google untuk melanjutkan ke beam"
+                display nAccountGoogle
+
+                if(nAccountGoogle == nGmail)
+                    begin 
+                        call mainPage
+
+                        //Simpan ke database dan menuju mainPage
+                        
+                        compute nGmailDatabase as (nNationPhoneCode + nPhone)
+                        call mainPage
+                    end
+                else
+                    begin 
+                        display "Akun ini tidak terdaftar dengan gmail anda"
+                    end
+                endif
             end
         end
-
     end
 
 ```
@@ -84,30 +108,58 @@
 ```
     function login_phone
     begin 
-        numeric nPhone, nVerify, nNation = +62, 
+        character nDatabase, nPhone, nVerify, nNationPhoneCode = +62, 
         
         label Error : 
             display "Harap periksa nomor anda kembali"
 
         display "Masukkan Kode No.Telpon anda gunakan "
-        accept nNation
+        accept nNationPhoneCode
 
         display "contoh no.telfon : 81xx-xxx-xxx"
         accept nPhone
 
-        if(nPhone == nNation)
+        // Di sini ada 2 kondisi dimana pada saat nPhone tidak ada, maka langsung terdaftar
+        if(nPhone == nDatabase)
             begin 
-                character nKode
-                compute nVerify as (nKode)
+                if(nPhone == nNationPhoneCode)
+                    begin 
+                        character nKode
+                        compute nVerify as (nKode)
 
-                display nVerify
+                        display nVerify
 
-                call mainPage
-            endbegin 
+                        //Simpan ke database dan menuju mainPage
+                        accept nDatabase
+                        compute nDatabase as (nNationPhoneCode + nPhone)
+                        call mainPage
+                    end
+                else 
+                    begin 
+                        
+                        goto Error
+                    end
+                endif
             end
         else 
             begin 
-                goto Error
+                if(nPhone == nNationPhoneCode)
+                    begin 
+                        character nKode
+                        compute nVerify as (nKode)
+
+                        display nVerify
+
+                        //Simpan ke database dan menuju mainPage
+                        accept nDatabase
+                        compute nDatabase as (nNationPhoneCode + nPhone)
+                        call mainPage
+                    end
+                else 
+                    begin 
+                        goto Error
+                    end
+                endif
             end
         endif
     end
@@ -173,7 +225,7 @@
     end
 ```
 
-### Pembayaran
+### Top Up Saldo 
 ```
     // producer input kartu kredit atau debit
     procedure InputKartu (input character, input numeric, input numeric, input character)
@@ -367,7 +419,7 @@
 
 ```
 
-### QR CODE & DAN PENYEWAAN BEAM
+### QR CODE & DAN PENYEWAAN BEAM SEKALIGUS PEMBAYARAN
 ```
     procedure nQrCode
     begin 
