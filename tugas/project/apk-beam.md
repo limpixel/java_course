@@ -110,7 +110,7 @@ Psuedocode :
 ```
     function login_phone
     begin 
-        character nDatabase, nPhone, nVerify, nNationPhoneCode = +62, 
+        character nDatabase, nPhone, nVerify, nNationPhoneCode, 
         
         label Error : 
             display "Harap periksa nomor anda kembali"
@@ -124,7 +124,7 @@ Psuedocode :
         // Di sini ada 2 kondisi dimana pada saat nPhone tidak ada, maka langsung terdaftar
         if(nPhone == nDatabase)
             begin 
-                if(nPhone == nNationPhoneCode)
+                if(nNationPhoneCode == "+62") 
                     begin 
                         character nKode
                         compute nVerify as (nKode)
@@ -327,13 +327,17 @@ Psuedocode :
                                 end 
                             
                         end
+                        
                     else if (nMethodPayment == "Dana")
                         begin 
                             numeric nApkDana, nPhoneNumber, nNetwork ,nPin = false
 
-                            accept  nApkDana, nPhoneNumber, nNetwork ,nPin
+                            label InputNomorSalah: 
+                                display "Masukkan Nomor telfon anda dengan benar"
 
-                            display "Dalam 10 detik kami akan mengantarkan anda ke halaman dana"
+                            display "Input Nomor Dana Anda"
+
+                            accept  nApkDana, nPhoneNumber, nNetwork ,nPin
 
                             if(nPhoneNumber == true)                    
                                 begin 
@@ -353,10 +357,16 @@ Psuedocode :
 
                                             call proPembayaran
                                         end
+
+                                    else 
+                                        begin 
+                                            display "Input pin dengan benar"
+                                        end
+                                    endif
                                 end
                             else
                                 begin 
-                                    display "Input pin dengan benar"
+                                    goto InputNomorSalah
                                 end
                             endif
 
@@ -401,6 +411,8 @@ Psuedocode :
                                     else
                                         begin
                                             display "Harap coba lagi"
+                                        end
+                                    endif
                                 end
                             endif
                         end
@@ -420,8 +432,9 @@ Psuedocode :
     end
 
 ```
-
+---
 ### QR CODE & DAN PENYEWAAN BEAM SEKALIGUS PEMBAYARAN
+
 ```
     procedure nQrCode
     begin 
@@ -518,4 +531,12 @@ Psuedocode :
 
 --- 
 
+### AKUN DAN RIWAYAT
+```
+    procedure proSupport
+    begin 
+        character nEmail, nfirstName, nLastName
+        accept nEmail, nfirstName, nLastName
 
+    end
+```
