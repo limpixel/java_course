@@ -362,9 +362,13 @@ Psuedocode :
 
                             accept  nApkDana, nPhoneNumber, nNetwork ,nPin
 
+                            label BackPin:
+                                display "Internet anda tidak stabil, harap coba lagi"
+
                             if(nPhoneNumber == true)                    
                                 begin 
                                     display "Input pin anda"
+                                    
                                     
                                     if(nPin == true )
                                         begin 
@@ -373,6 +377,10 @@ Psuedocode :
                                             if(nNetwork == "not stable")
                                                 begin 
                                                     display "Internet terlalu rendah, harap mencoba ulang"
+                                                end
+                                            else 
+                                                begin 
+                                                    goto BackPin
                                                 end
                                             endif
 
