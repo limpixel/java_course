@@ -16,11 +16,12 @@ Psuedocode
         character nOtpion
         accept nOtpion
         
-        display "Selamat datang di Beam"
+        display "Selamat datang di Beam & Lanjutkan ke login"
 
         switch (nOtpion)
             begin
                 case lanjut : 
+                    display "Lanjutkan untuk login "
                     call login_Option
                     break
                 default : 
@@ -69,6 +70,9 @@ Flowchart :
     
         character nAccountGoogle, nGmail, nGmailDatabase
 
+        label BackInput: 
+            display "ERROR : Harap menggunakan account yang terdaftar dengan gmail anda"
+
         display "Silahkan pilih akun google untuk melanjutkan ke beam"
         accept nAccountGoogle, nGmail, nGmailDatabase
         display nAccountGoogle
@@ -85,7 +89,7 @@ Flowchart :
                     end
                 endif
             end
-        else 
+        elseif(nAccountGoogle != nGmailDatabase)
             begin 
                 display "Silahkan pilih akun google untuk melanjutkan ke beam"
                 display nAccountGoogle
@@ -105,6 +109,10 @@ Flowchart :
                     end
                 endif
             end
+        else
+            begin 
+                goto BackInput
+            end
         endif
     end
 
@@ -114,7 +122,7 @@ Flowchart :
 
 Psuedocode : 
 ```
-    character nPhone = 811-5133-959 , nNationPhoneCode = +62
+    character nPhoneDatabase, nPhone = 811-5133-959 , nNationPhoneCode = +62
 
     compute nPhoneDatabase as (nPhone, nNationPhoneCode)
 
@@ -131,10 +139,8 @@ Psuedocode :
         accept nPhone
         
 
-        accept nDatabase 
-
         // Di sini ada 2 kondisi dimana pada saat nPhone tidak ada, maka langsung terdaftar
-        if(nInputData == nDatabase && nNationPhoneCode == nDatabase)
+        if(nInputData == nPhoneDatabase && nNationPhoneCode == nPhoneDatabase)
             begin 
                 <!-- GA TAU YANG MANA YANG MAU DI MASUKKIN -->
 
@@ -147,8 +153,10 @@ Psuedocode :
                         display nVerify
 
                         //Simpan ke database dan menuju mainPage
-                        accept nDatabase
-                        compute nDatabase as (nNationPhoneCode + nPhone) // +62 811-5133-959 = nomornya ini 
+                        accept nPhoneDatabase
+                        
+                        // bikin status di sini
+
                         call mainPage
                     end
                 else 
@@ -157,7 +165,7 @@ Psuedocode :
                     end
                 endif
             end
-        else 
+        elseif (nInputData != nPhoneDatabase && nNationPhoneCode != nPhoneDatabase)
             begin 
                 if(nNationPhoneCode == "+62")
                     begin 
@@ -176,6 +184,10 @@ Psuedocode :
                         goto Error
                     end
                 endif
+            end
+        else 
+            begin 
+                display "harap masukkan kode telfon negara dan nomor telfon anda dengan benar"
             end
         endif
     end
@@ -232,8 +244,6 @@ Psuedocode :
                     call proPembayaran
                 case QRCode : 
                     call nQrCode
-                case Support : 
-                    call proSupport
                 case Account : 
                     call proAccount
             end
