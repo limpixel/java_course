@@ -41,11 +41,11 @@ Flowchart :
 ```
     procedure login_Option
     begin 
-        numeric nOption
+        character nOption
         accept nOption
         switch(nOption)
             begin 
-                case login : 
+                case loginGoogle : 
                     call proLogin_Google
                     break
                 case numberPhone : 
