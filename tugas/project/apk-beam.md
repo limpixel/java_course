@@ -10,6 +10,7 @@
 
 Psuedocode
 ```
+    procedure pageWelcome
     procedure login_Option 
     begin 
         character nOtpion
@@ -95,7 +96,7 @@ Flowchart :
 
                         //Simpan ke database dan menuju mainPage
                         
-                        compute nGmailDatabase as (nNationPhoneCode + nPhone)
+                        compute nGmailDatabase as (nAccountGoogle + nPhone)
                         call mainPage
                     end
                 else
@@ -104,7 +105,7 @@ Flowchart :
                     end
                 endif
             end
-        end
+        endif
     end
 
 ```
@@ -113,13 +114,12 @@ Flowchart :
 
 Psuedocode : 
 ```
-    character nGmail = neonjake019@gmail.com , nPassword = Neonjake19
+    character nPhone = 811-5133-959 , nNationPhoneCode = +62
 
-    compute nGmailDatabase as (nGmail, nPassword)e
+    compute nPhoneDatabase as (nPhone, nNationPhoneCode)
 
     function login_phone
     begin 
-        character nDatabase, nPhone, nVerify, nNationPhoneCode, 
         
         label Error : 
             display "Harap periksa nomor anda kembali"
@@ -129,13 +129,19 @@ Psuedocode :
 
         display "contoh no.telfon : 81xx-xxx-xxx"
         accept nPhone
+        
+
+        accept nDatabase 
 
         // Di sini ada 2 kondisi dimana pada saat nPhone tidak ada, maka langsung terdaftar
-        if(nPhone == nDatabase)
+        if(nInputData == nDatabase && nNationPhoneCode == nDatabase)
             begin 
+                <!-- GA TAU YANG MANA YANG MAU DI MASUKKIN -->
+
                 if(nNationPhoneCode == "+62") 
                     begin 
                         character nKode
+                        accept nVerify
                         compute nVerify as (nKode)
 
                         display nVerify
@@ -153,7 +159,7 @@ Psuedocode :
             end
         else 
             begin 
-                if(nPhone == nNationPhoneCode)
+                if(nNationPhoneCode == "+62")
                     begin 
                         character nKode
                         compute nVerify as (nKode)
@@ -174,35 +180,6 @@ Psuedocode :
         endif
     end
 
-    begin
-       
-
-        // Meminta pengguna untuk memasukkan nomor telepon dan kata sandi
-        display "Selamat datang di halaman login."
-        repeat
-        begin 
-            display "Masukkan nomor telepon:"
-            accept inputPhoneNumber
-            display "Masukkan kata sandi:"
-            accept inputPassword
-        end until (inputPhoneNumber != "" AND inputPassword != "")
-
-        // Mengecek nomor telepon dan kata sandi dalam array
-        
-        for(i = 1; i >=5; i + 1)
-            if (inputPhoneNumber == phoneNumberArray[i] AND inputPassword == passwordArray[i])
-                isLoggedIn = true
-                break
-            endif
-        end
-
-        // Menampilkan hasil login
-        if (isLoggedIn)
-            display "Login berhasil. Selamat datang!"
-        else
-            display "Login gagal. Nomor telepon atau kata sandi salah."
-
-    end
 ```
 
 
@@ -260,8 +237,6 @@ Psuedocode :
                 case Account : 
                     call proAccount
             end
-
-
     end
 ```
 
@@ -273,7 +248,6 @@ Psuedocode :
     //procedure untuk Active kan 
     proceudre Active (input character, input numeric, input numeric, input character)
 
-    
 
     procedure proPembayaran 
     begin 
@@ -538,7 +512,6 @@ Psuedocode :
                 display "Harap isi saldo anda"
             end
         endif // endif nSaldo >= "Rp 20.000"
-
     end 
 ```
 
@@ -549,67 +522,96 @@ Psuedocode :
 ```
     procedure proSupport
     begin 
-        character nEmail, nfirstName, nLastName, nOption
-        accept nEmail, nfirstName, nLastName, nOption
+        character nEmail, nfirstName, nLastName, nOption, nHapusAkun
+        accept nEmail, nfirstName, nLastName, nOption, nHapusAkun
     
 
         switch(nOption)
             begin 
                 case cProfile : 
-                    display nfirstName, nLastName,nEmail 
-                case cRiwayat : 
-                case cPanduanBerkendara : 
-                case cBeamBisnis : 
-                case cLogout : 
-            end
+                    
+                    label nDisplayProfile: 
+                        display "Ini Adalah profile anda"
 
+                    display nfirstName, nLastName,nEmail, nHapusAkun
+                    
+                    boolean nStatusOptionHapusAkun = true
+                    accept nStatusOptionHapusAkun
+
+                    if( nHapusAkun == nStatusOptionHapusAkun )
+                        begin 
+                            character nOptionAlasan, nInputAlasanLainya = false
+                            accept nInputAlasanLainya 
+                            
+                            // list alasan
+                            display nOptionAlasan
+
+                            if(nInputAlasanLainya == "Lainnya")
+                                begin 
+                                    display "Massukkan Anda sangat penting. Adakah hal lain yang bisa kami bantu?"
+                                end    
+                            endif
+
+                            accept nOptionAlasan
+
+                        end
+                    else 
+                        begin 
+                            goto nDisplayProfile 
+                        end
+                    endif
+
+                case cRiwayat : 
+                    character nTanggal, nPukul, nWaktu, nTotalHarga, nDurasi, nPaymentMethod, nRiwayatDetailButton
+                    boolean statusKlik = true
+                    accept nTanggal, nPukul, nWaktu, nTotalHarga, nDurasi, statusKlik, nPaymentMethod, nRiwayatDetailButton
+
+                    compute nResi as (nTotalHarga, nPaymentMethod)
+                    compute nRiwayat as (nTanggal, nPukul, nWaktu, nTotalHarga, nDurasi) 
+                    
+                    label nBackRiwayat:
+                        display "Riwayat Terakhir anda"
+
+                    display nRiwayatDetailButton
+
+                    if(nRiwayatDetailButton == statusKlik)
+                        begin 
+                            character nResi, nBack
+                            accept nResi
+
+                            label nDetailRiwayat: 
+                                display "Ini detail riwayat anda"
+
+                            display "Detail perjalanan"
+                            display nRiwayat
+                            display nResi
+
+                            if(nResi == statusKlik)
+                                begin 
+                                    display nResi
+                                end
+                            elseif (nBack == statusKlik)
+                                begin 
+                                    goto nBackRiwayat
+                                end
+                            else 
+                                begin 
+                                    goto nDetailRiwayat
+                                end
+                            endif
+                            
+                        end
+                    else
+                        begin 
+                        end
+                    endif
+
+                case cLogout : 
+                    call pageWelcome
+            end
+        
 
     end
 ```
 
 --- 
-
-### DATABASE PROCEDURE 
-```
-    procedure nDatabase
-
-    begin     
-
-        // Deklarasi variabel
-        character[10] phoneNumberArray[5] // Array nomor telepon
-        character[10] passwordArray[5]    // Array password
-        character[10] inputPhoneNumber   // Nomor telepon yang dimasukkan pengguna
-        character[10] inputPassword      // Kata sandi yang dimasukkan pengguna
-        boolean isLoggedIn = false       // Status login
-
-        // Inisialisasi data pengguna
-        phoneNumberArray[1] = "1234567890"
-        passwordArray[1] = "password1"
-
-        phoneNumberArray[2] = "9876543210"
-        passwordArray[2] = "password2"
-
-        phoneNumberArray[3] = "5555555555"
-        passwordArray[3] = "password3"
-
-        phoneNumberArray[4] = "1111111111"
-        passwordArray[4] = "password4"
-
-        phoneNumberArray[5] = "9999999999"
-        passwordArray[5] = "password5"
-
-
-        for(nDatabase = 0; nDatabase >= 100; nDatabase + 1 )
-            begin 
-                display phoneNumberArray[]
-                display passwordArray[]
-                display inputPhoneNumber[]
-                display inputPassword[]
-            end
-        
-
-
-    end
-
-
-```
