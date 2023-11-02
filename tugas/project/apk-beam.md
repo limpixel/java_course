@@ -58,6 +58,11 @@ Flowchart :
 ---
 ### LOGIN GOOGLE ACOUNT
 ```
+
+    character nGmail = neonjake019@gmail.com , nPassword = Neonjake19
+
+    compute nGmailDatabase as (nGmail, nPassword)
+
     procedure proLogin_Google
     begin
     
@@ -108,11 +113,12 @@ Flowchart :
 
 Psuedocode : 
 ```
+    character nGmail = neonjake019@gmail.com , nPassword = Neonjake19
+
+    compute nGmailDatabase as (nGmail, nPassword)e
+
     function login_phone
-
-
     begin 
-
         character nDatabase, nPhone, nVerify, nNationPhoneCode, 
         
         label Error : 
@@ -136,7 +142,7 @@ Psuedocode :
 
                         //Simpan ke database dan menuju mainPage
                         accept nDatabase
-                        compute nDatabase as (nNationPhoneCode + nPhone)
+                        compute nDatabase as (nNationPhoneCode + nPhone) // +62 811-5133-959 = nomornya ini 
                         call mainPage
                     end
                 else 
