@@ -1,5 +1,5 @@
 <div id="header" width="30%" align="center">
-    <img src="../../asset/sip.png" width="30%%" />
+    <img src="../../asset/beam-ds.png" width="30%%" />
     <p>Psuedocode Aplikais Beam</p>
 </div>
 
@@ -109,6 +109,8 @@ Flowchart :
 Psuedocode : 
 ```
     function login_phone
+
+
     begin 
 
         character nDatabase, nPhone, nVerify, nNationPhoneCode, 
@@ -164,6 +166,36 @@ Psuedocode :
                 endif
             end
         endif
+    end
+
+    begin
+       
+
+        // Meminta pengguna untuk memasukkan nomor telepon dan kata sandi
+        display "Selamat datang di halaman login."
+        repeat
+        begin 
+            display "Masukkan nomor telepon:"
+            accept inputPhoneNumber
+            display "Masukkan kata sandi:"
+            accept inputPassword
+        end until (inputPhoneNumber != "" AND inputPassword != "")
+
+        // Mengecek nomor telepon dan kata sandi dalam array
+        
+        for(i = 1; i >=5; i + 1)
+            if (inputPhoneNumber == phoneNumberArray[i] AND inputPassword == passwordArray[i])
+                isLoggedIn = true
+                break
+            endif
+        end
+
+        // Menampilkan hasil login
+        if (isLoggedIn)
+            display "Login berhasil. Selamat datang!"
+        else
+            display "Login gagal. Nomor telepon atau kata sandi salah."
+
     end
 ```
 
@@ -511,8 +543,20 @@ Psuedocode :
 ```
     procedure proSupport
     begin 
-        character nEmail, nfirstName, nLastName
-        accept nEmail, nfirstName, nLastName
+        character nEmail, nfirstName, nLastName, nOption
+        accept nEmail, nfirstName, nLastName, nOption
+    
+
+        switch(nOption)
+            begin 
+                case cProfile : 
+                    display nfirstName, nLastName,nEmail 
+                case cRiwayat : 
+                case cPanduanBerkendara : 
+                case cBeamBisnis : 
+                case cLogout : 
+            end
+
 
     end
 ```
@@ -522,8 +566,44 @@ Psuedocode :
 ### DATABASE PROCEDURE 
 ```
     procedure nDatabase
-    begin 
-        character nName[10]
+
+    begin     
+
+        // Deklarasi variabel
+        character[10] phoneNumberArray[5] // Array nomor telepon
+        character[10] passwordArray[5]    // Array password
+        character[10] inputPhoneNumber   // Nomor telepon yang dimasukkan pengguna
+        character[10] inputPassword      // Kata sandi yang dimasukkan pengguna
+        boolean isLoggedIn = false       // Status login
+
+        // Inisialisasi data pengguna
+        phoneNumberArray[1] = "1234567890"
+        passwordArray[1] = "password1"
+
+        phoneNumberArray[2] = "9876543210"
+        passwordArray[2] = "password2"
+
+        phoneNumberArray[3] = "5555555555"
+        passwordArray[3] = "password3"
+
+        phoneNumberArray[4] = "1111111111"
+        passwordArray[4] = "password4"
+
+        phoneNumberArray[5] = "9999999999"
+        passwordArray[5] = "password5"
+
+
+        for(nDatabase = 0; nDatabase >= 100; nDatabase + 1 )
+            begin 
+                display phoneNumberArray[]
+                display passwordArray[]
+                display inputPhoneNumber[]
+                display inputPassword[]
+            end
+        
+
+
     end
+
 
 ```
