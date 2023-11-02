@@ -520,7 +520,7 @@ Psuedocode :
 
 ### AKUN DAN RIWAYAT
 ```
-    procedure proSupport
+    procedure proAccount
     begin 
         character nEmail, nfirstName, nLastName, nOption, nHapusAkun
         accept nEmail, nfirstName, nLastName, nOption, nHapusAkun
