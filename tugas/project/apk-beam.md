@@ -41,15 +41,15 @@ Flowchart :
 ```
     procedure login_Option
     begin 
-        character nOption
-        accept nOption
-        switch(nOption)
+        boolean statusKlik = true
+        accept statusKlik
+        switch(statusKlik)
             begin 
                 case loginGoogle : 
                     call proLogin_Google
                     break
                 case numberPhone : 
-                    call prooLogin_Phone   
+                    call funLogin_Phone   
                     break
                 default : 
                     display "Pilih Opsi Login yang ingin digunakan"
@@ -61,57 +61,58 @@ Flowchart :
 ### LOGIN GOOGLE ACOUNT
 ```
 
-    character nGmail = neonjake019@gmail.com , nPassword = Neonjake19
+    character nGmail, nPassword 
 
     compute nGmailDatabase as (nGmail, nPassword)
 
     procedure proLogin_Google
     begin
     
-        character nAccountGoogle, nGmail, nGmailDatabase
+        character nAccountGoogle 
+        
 
-        label BackInput: 
+        label BackSelectGmail: 
             display "ERROR : Harap menggunakan account yang terdaftar dengan gmail anda"
 
         display "Silahkan pilih akun google untuk melanjutkan ke beam"
-        accept nAccountGoogle, nGmail, nGmailDatabase
+        accept nAccountGoogle
         display nAccountGoogle
+        
+        compute nAccountGoogleSelected as (nAccountGoogle)
 
-        if(nAccountGoogle == nGmailDatabase )
+        if(nAccountGoogleSelected == nGmailDatabase )
             begin
-                if(nAccountGoogle == nGmail)
+                if(nAccountGoogleSelected == nGmail)
                     begin 
                         call mainPage
                     end
                 else
                     begin 
                         display "Akun ini tidak terdaftar "
+                        goto BackSelectGmail
                     end
                 endif
             end
-        elseif(nAccountGoogle != nGmailDatabase)
+        elseif(nAccountGoogleSelected != nGmailDatabase)
             begin 
-                display "Silahkan pilih akun google untuk melanjutkan ke beam"
-                display nAccountGoogle
+                display nAccountGoogleSelected
 
-                if(nAccountGoogle == nGmail)
+                if(nAccountGoogleSelected == nGmail)
                     begin 
-                        call mainPage
+                        compute nGmailDatabase as (nAccountGoogleSelected)
 
-                        //Simpan ke database dan menuju mainPage
-                        
-                        compute nGmailDatabase as (nAccountGoogle + nPhone)
                         call mainPage
                     end
                 else
                     begin 
                         display "Akun ini tidak terdaftar dengan gmail anda"
+                        goto BackSelectGmail
                     end
                 endif
             end
         else
             begin 
-                goto BackInput
+                goto BackSelectGmail
             end
         endif
     end
@@ -122,11 +123,11 @@ Flowchart :
 
 Psuedocode : 
 ```
-    character nPhoneDatabase, nPhone = 811-5133-959 , nNationPhoneCode = +62
+    character nPhoneDatabase, nPhone , nNationPhoneCode = +62
 
     compute nPhoneDatabase as (nPhone, nNationPhoneCode)
 
-    function login_phone
+    function funLogin_Phone
     begin 
         
         label Error : 
@@ -142,7 +143,6 @@ Psuedocode :
         // Di sini ada 2 kondisi dimana pada saat nPhone tidak ada, maka langsung terdaftar
         if(nInputData == nPhoneDatabase && nNationPhoneCode == nPhoneDatabase)
             begin 
-                <!-- GA TAU YANG MANA YANG MAU DI MASUKKIN -->
 
                 if(nNationPhoneCode == "+62") 
                     begin 
@@ -152,11 +152,9 @@ Psuedocode :
 
                         display nVerify
 
-                        //Simpan ke database dan menuju mainPage
+                        //Diterima dan di kirim ke database, langsung menuju mainPage
                         accept nPhoneDatabase
                         
-                        // bikin status di sini
-
                         call mainPage
                     end
                 else 
@@ -175,7 +173,6 @@ Psuedocode :
                         display nVerify
 
                         //Simpan ke database dan menuju mainPage
-                        accept nDatabase
                         compute nDatabase as (nNationPhoneCode + nPhone)
                         call mainPage
                     end
@@ -187,7 +184,7 @@ Psuedocode :
             end
         else 
             begin 
-                display "harap masukkan kode telfon negara dan nomor telfon anda dengan benar"
+                goto Error
             end
         endif
     end
@@ -203,13 +200,10 @@ Psuedocode :
     // declare procedure nQrCode (Bisa aja salah)
     procedure nQrCode
 
-    // declare procedure proSupport (Bisa aja salah)
-    procedure proSupport
-
     procedure mainPage
     begin 
         numeric nUser ,nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
-        accept nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
+        accept nUser, nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
 
         switch (nFitur)
             begin 
@@ -252,7 +246,7 @@ Psuedocode :
 
 ### Top Up Saldo 
 ```
-    // producer input kartu kredit atau debit
+    // procedure input kartu kredit atau debit
     procedure InputKartu (input numeric, input numeric, input numeric, input character)
 
     //procedure untuk Active kan 
@@ -362,8 +356,7 @@ Psuedocode :
 
                             accept  nApkDana, nPhoneNumber, nNetwork ,nPin
 
-                            label BackPin:
-                                display "Internet anda tidak stabil, harap coba lagi"
+                            
 
                             if(nPhoneNumber == true)                    
                                 begin 
@@ -372,19 +365,25 @@ Psuedocode :
                                     
                                     if(nPin == true )
                                         begin 
+
+                                            label internetLagging: 
+                                                display "Internet terlalu rendah, harap mencoba ulang"
+
                                             display "Proses pembayaran akan sebentar lagi"
                                             
+                                            // Ini di situasi tertentu saja, jadi kalau internet bermasalah
                                             if(nNetwork == "not stable")
                                                 begin 
-                                                    display "Internet terlalu rendah, harap mencoba ulang"
+                                                    goto internetLagging // internet bermasalah langsung ke label internetLagging
                                                 end
                                             else 
                                                 begin 
-                                                    goto BackPin
+                                                    goto LabelSukses
                                                 end
                                             endif
 
-                                            display "Pembayaran sukses"
+                                            label LabelSukses: 
+                                                display "Pembayaran sukses"
 
                                             call proPembayaran
                                         end
@@ -404,7 +403,8 @@ Psuedocode :
                         end
                     else if (nMethodPayment == "Ovo")
                         begin 
-                            numeric nApkOvo, nPopuP, nPin, nSaldoOvo
+                            numeric nApkOvo, nPopuP, nPin, nSaldoOvo, 
+                            boolean nSelect = true
 
                             accept nApkOvo, nPopuP, nPin, nSaldoOvo
 
@@ -412,7 +412,7 @@ Psuedocode :
 
                             display nPopUp
 
-                            if(nPopUp == CLICK) // ketika user klik pop upnya
+                            if(nPopUp == nSelect) // ketika user klik pop upnya
                                 begin 
 
                                     numeric nConfirm, nAvg
@@ -476,7 +476,7 @@ Psuedocode :
         
         if(nSaldo >= "Rp 20.000")
             begin 
-                if (nQrCode == nBeamID )
+                if (nQrID == nBeamID )
                     begin 
                         <!-- display nBeamStatus, nTarif, nWaktu,  -->
 
@@ -493,18 +493,65 @@ Psuedocode :
                                         begin
                                             goto akhir
                                         end
+                                    elseif(nSaldo <= nHargaTotal)
+                                        begin 
+                                            goto saldoKurang
+                                        end
                                     else
                                         begin 
-                                            display "apakah kamu sudah mengembalikkan helm?"
+                                            display "apakah kamu yakin sudah mengembalikkan helm?"
 
-                                            if(nStatus == true)
+                                            if(nStatus == false) // double cross checked
                                                 begin
-                                                    goto akhir
+                                                    goto dendaHelm
+                                                end
+                                            else 
+                                                begin 
+                                                     goto akhir
                                                 end
                                             endif
                                         end
                                     endif
 
+                                    label saldoKurang : 
+                                        numeric nKurangSaldo
+                                        accept nKurangSaldo
+
+                                        compute nHargaTotalKeseluruhan as (nHargaTotal - nSaldo - nKurangSaldo )
+                                        
+                                        call mainPage
+
+                                    label dendaHelm : 
+                                        numeric nHargaDenda
+                                        accept nHargaDenda
+                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka + nHargaDenda ) 
+                                        
+                                        while(nSaldo < nHargaTotal)
+                                            begin 
+                                                compute nHargaTotal - nSaldo
+
+                                                display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
+
+                                                call mainPage
+                                            end
+
+                                        call mainPage
+
+                                    label dendaAkhir : 
+                                        numeric nHargaDenda
+                                        accept nHargaDenda
+                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka + nHargaDenda ) 
+                                        
+                                        while(nSaldo < nHargaTotal)
+                                            begin 
+                                                compute nHargaTotal - nSaldo
+
+                                                display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
+
+                                                call mainPage
+                                            end
+
+                                        call mainPage
 
                                     label akhir : 
                                         compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
@@ -528,6 +575,7 @@ Psuedocode :
         else 
             begin
                 display "Harap isi saldo anda"
+                call proPembayaran
             end
         endif // endif nSaldo >= "Rp 20.000"
     end 
