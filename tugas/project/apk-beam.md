@@ -206,6 +206,8 @@ Psuedocode :
         boolean nStatusklik = true
         accept nUser, nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
 
+        display mainPage
+
         switch (nFitur )
             begin 
                 case main : 
@@ -237,10 +239,13 @@ Psuedocode :
                 
                 case Pembayaran : 
                     call proPembayaran
+                    break
                 case QRCode : 
                     call nQrCode
+                    break
                 case Account : 
                     call proAccount
+                    beak
                 default : 
                     display mainPage
             end
@@ -275,10 +280,17 @@ Psuedocode :
 
                     accept paketKredit
 
+                    
+                        
+
                     display "Pilih MethodPembayaran"
+                    display "1. Kartu Kredit "
+                    display "2. Shoope Pay "
+                    display "3. Dana  "
+                    display "4. OVO "
                     accept nMethodPayment
 
-                    if(nMethodPayment == "Kartu Kredit")
+                    if(nMethodPayment == "1")
                         begin 
                             numeric nNomorKartu, nExpiredDate, nCVV, 
                             character nNameOwner
@@ -320,7 +332,7 @@ Psuedocode :
                                         end
                                 end
                         end
-                    else if (nMethodPayment == "Shoope Pay")
+                    elseif(nMethodPayment == "2")
                         begin 
                             numeric ApkShoopie = true
                             accept AphkShoopie
@@ -348,7 +360,7 @@ Psuedocode :
                             
                         end
                         
-                    else if (nMethodPayment == "Dana")
+                    elseif(nMethodPayment == "2")
                         begin 
                             numeric nApkDana, nPhoneNumber, nNetwork ,nPin = false
 
@@ -404,7 +416,7 @@ Psuedocode :
                             endif
 
                         end
-                    else if (nMethodPayment == "Ovo")
+                    elseif(nMethodPayment == "3")
                         begin 
                             numeric nApkOvo, nPopuP, nPin, nSaldoOvo, 
                             boolean nSelect = true
@@ -452,11 +464,11 @@ Psuedocode :
                         end
                     else
                         begin 
-                            display "Pilih metode pembayaran yang anda inginkan"
+                            call proPembayaran
                         end
                     endif
                     
-            
+                    break
                 default : 
                     display "This is payment page and you can add payment method in here "
                     call proPembayaran
@@ -472,7 +484,8 @@ Psuedocode :
 ```
     procedure nQrCode
     begin 
-        numeric nCamera, nQrID, nBeamID, nWaktu, nTarif, nBeamStatus = false
+        numeric nCamera, nQrID, nBeamID, nWaktu, nTarif, 
+        boolean nStatusHelm = false ,nBeamStatus = false
 
         display "Scan QR Pada Beam"
         accept nCamera, nQrID, nBeamID, nWaktu, nTarif, nBeamStatus
@@ -487,34 +500,22 @@ Psuedocode :
                         switch (nUser)
                             begin 
                                 case akhiri: 
-                                    numeric statusHelm = true, nHargaTotal, nHargaBuka = 1.750, nWaktuMenit 
+                                    numeric statusHelm = false, nHargaTotal, nHargaBuka = 1.750, nWaktuMenit 
                                     accept nHargaTotal, nHargaBuka, statusHelm, nWaktuMenit
 
                                     display "Silahkan kembalikan helm di tempat"
 
-                                    if(nStatusHelm == true)
-                                        begin
-                                            goto akhir
-                                        end
-                                    elseif(nSaldo <= nHargaTotal)
+
+                                    if(nSaldo <= nHargaTotal)
                                         begin 
                                             goto saldoKurang
                                         end
                                     else
                                         begin 
-                                            display "apakah kamu yakin sudah mengembalikkan helm?"
-
-                                            if(nStatus == false) // double cross checked
-                                                begin
-                                                    goto dendaHelm
-                                                end
-                                            else 
-                                                begin 
-                                                     goto akhir
-                                                end
-                                            endif
+                                            goto akhir
                                         end
                                     endif
+
 
                                     label saldoKurang : 
                                         numeric nKurangSaldo
@@ -523,6 +524,24 @@ Psuedocode :
                                         compute nHargaTotalKeseluruhan as (nHargaTotal - nSaldo - nKurangSaldo )
                                         
                                         call mainPage
+
+                                        break
+                                    
+                                    label akhir : 
+
+                                        if(nStatusHelm == true)
+                                            begin 
+                                                compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+
+                                                compute nHargaTotal - nSaldo 
+
+                                                call mainPage
+                                            end
+                                        else
+                                            begin 
+                                                goto dendaHelm
+                                            end
+                                        endif
 
                                     label dendaHelm : 
                                         numeric nHargaDenda
@@ -540,6 +559,7 @@ Psuedocode :
 
                                         call mainPage
 
+
                                     label dendaAkhir : 
                                         numeric nHargaDenda
                                         accept nHargaDenda
@@ -556,12 +576,9 @@ Psuedocode :
 
                                         call mainPage
 
-                                    label akhir : 
-                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+                                    
 
-                                        compute nHargaTotal - nSaldo 
-
-                                        call mainPage
+                                        
 
                                     break
 
@@ -577,7 +594,7 @@ Psuedocode :
             end
         else 
             begin
-                display "Harap isi saldo anda"
+                display "Saldo harus di atas 20.000 dan Harap isi saldo anda"
                 call proPembayaran
             end
         endif // endif nSaldo >= "Rp 20.000"
@@ -630,6 +647,8 @@ Psuedocode :
                         end
                     endif
 
+                    break
+
                 case cRiwayat : 
                     character nTanggal, nPukul, nWaktu, nTotalHarga, nDurasi, nPaymentMethod, nRiwayatDetailButton
                     boolean statusKlik = true
@@ -643,7 +662,7 @@ Psuedocode :
 
                     display nRiwayatDetailButton
 
-                    if(nRiwayatDetailButton == statusKlik)
+                    while(nRiwayatDetailButton == statusKlik)
                         begin 
                             character nResi, nBack
                             accept nResi
@@ -668,15 +687,20 @@ Psuedocode :
                                     goto nDetailRiwayat
                                 end
                             endif
-                            
                         end
-                    else
-                        begin 
-                        end
-                    endif
+
+                    call proAccount
+
+                    break
+                    
 
                 case cLogout : 
                     call pageWelcome
+                    break
+                
+                default: 
+                    call proAccount
+                
             end
         
 
