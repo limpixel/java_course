@@ -11,7 +11,6 @@
 Psuedocode
 ```
     procedure pageWelcome
-    procedure login_Option 
     begin 
         character nOtpion
         boolean nStatusklik = true
@@ -218,7 +217,7 @@ Psuedocode :
                         display nBeamNear
 
 
-                    if(nBeamNear == nStatusklik) // Di Klik
+                    while (nBeamNear == nStatusklik) // Di Klik
                         begin 
                             display statusBerkendara = true ,nBeamId, nBeamBattery, nBeamTraveled, nTarif, nHargaBuka
                             display "Pindai Untuk Berkendara?"
@@ -233,7 +232,7 @@ Psuedocode :
                                 end
                             endif
                         end
-                    endif
+
                     
                     break
                 
@@ -630,16 +629,11 @@ Psuedocode :
                             accept nInputAlasanLainya 
                             
                             // list alasan
-                            display nOptionAlasan
-
-                            if(nInputAlasanLainya == "Lainnya")
-                                begin 
-                                    display "Massukkan Anda sangat penting. Adakah hal lain yang bisa kami bantu?"
-                                end    
-                            endif
+                            display "Input alasan anda"
 
                             accept nOptionAlasan
 
+                            call pageWelcome
                         end
                     else 
                         begin 
