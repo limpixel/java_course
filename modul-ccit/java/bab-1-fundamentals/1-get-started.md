@@ -3,6 +3,7 @@
     <p>Java Code Lesson - Get Started</p>
 </div>
 
+
 ---
 | Table Of Content |
 | ---|
@@ -28,3 +29,7 @@ kalian bisa buka terminal dan ketik command dibawah ini :
 
 --- 
 <h3 id="2-create-java-file">2. Membuat File Java Pertama</h3>
+
+
+> 2.1 ) Dorothy followed her through many of the beautiful rooms in her castle. <br/>
+> <img src="../../../asset/ss/bab-1/file-yang-digunakan.png" width="18%"  />
