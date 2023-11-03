@@ -65,7 +65,7 @@ Flowchart :
 
     compute nGmailDatabase as (nGmail, nPassword)
 
-    procedure proLogin_Google
+    function proLogin_Google
     begin
     
         character nAccountGoogle 
@@ -202,7 +202,8 @@ Psuedocode :
 
     procedure mainPage
     begin 
-        numeric nUser ,nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
+        character nUser 
+        numeric nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
         accept nUser, nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
 
         switch (nFitur)
