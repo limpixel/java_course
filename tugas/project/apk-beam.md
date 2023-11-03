@@ -14,20 +14,21 @@ Psuedocode
     procedure login_Option 
     begin 
         character nOtpion
-        accept nOtpion
+        boolean nStatusklik = true
+        accept nOtpion, nStatusklik
         
         display "Selamat datang di Beam & Lanjutkan ke login"
 
-        switch (nOtpion)
-            begin
-                case lanjut : 
-                    display "Lanjutkan untuk login "
-                    call login_Option
-                    break
-                default : 
-                    
-                    display "Bergabunglah sekarang untuk berkeliling kota dengan cara paling seru, terjangkau, dan ramah lingkungan"
+        if(nOption == nStatusKlik)
+            begin 
+                display "Lanjutkan untuk login "
+                call login_Option
             end
+        else
+            begin 
+             call pageWelcome
+            end
+        endif
 
     end
 ```
@@ -197,16 +198,15 @@ Psuedocode :
 ### MAIN PAGE
 
 ```
-    // declare procedure nQrCode (Bisa aja salah)
-    procedure nQrCode
 
     procedure mainPage
     begin 
         character nUser 
         numeric nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
+        boolean nStatusklik = true
         accept nUser, nBeamNear, nBeamId, nBeamBattery, nBeamTraveled ,nBeamTrack, nTarif, nHargaBuka
 
-        switch (nFitur)
+        switch (nFitur )
             begin 
                 case main : 
                     display nBeamNear
@@ -216,7 +216,7 @@ Psuedocode :
                         display nBeamNear
 
 
-                    if(nBeamNear) // Di Klik
+                    if(nBeamNear == nStatusklik) // Di Klik
                         begin 
                             display statusBerkendara = true ,nBeamId, nBeamBattery, nBeamTraveled, nTarif, nHargaBuka
                             display "Pindai Untuk Berkendara?"
@@ -241,6 +241,8 @@ Psuedocode :
                     call nQrCode
                 case Account : 
                     call proAccount
+                default : 
+                    display mainPage
             end
     end
 ```
