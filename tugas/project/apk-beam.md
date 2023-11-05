@@ -326,6 +326,7 @@ Psuedocode :
                                         begin 
                                             goto nError
                                         end
+                                    endif
                                 end
                             endif
                         end
