@@ -522,35 +522,36 @@ Psuedocode :
                                         numeric nKurangSaldo
                                         accept nKurangSaldo
 
-                                        compute nHargaTotalKeseluruhan as (nHargaTotal - nSaldo - nKurangSaldo )
-
+                                        compute nSaldoKurang as ( nSaldo - nHargaTotal)
+                                        
                                         if(nStatusHelm == true)
-                                            begin 
-                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti dan tersisa saldo anda" : nSaldo = 0
-
+                                            begin
+                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti" 
+                                                nSaldo = 0 
                                                 call mainPage
                                             end
                                         else 
                                             begin 
                                                 numeric nHargaDenda
                                                 accept nHargaDenda
-                                                compute nDendaKeseluruh as (nKurangSaldo + nHargaDenda)
-                                                compute nSaldoKurang as (nDendaKeseluruhan)
 
-                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti dan tersisa saldo anda" : nSaldo = 0
+                                                compute nDendaKeseluruhan as (nSaldoKurang + nHargaDenda)
+                                                compute nSaldoCut as (nSaldo - nDendaKeseluruhan)
 
+                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti" 
+                                                nSaldo = 0 
                                                 call mainPage
                                             end
                                         endif
+
                                         
-                                        call mainPage
 
                                     
                                     label akhir : 
 
                                         if(nStatusHelm == true)
                                             begin 
-                                                compute nTarifAkhir as ( nHargaTotal - nSaldo )
+                                                compute nTarifAkhir as ( nSaldo - nHargaTotal )
                                                 display nTarifAkhir
 
                                                 call mainPage
@@ -562,40 +563,29 @@ Psuedocode :
                                         endif
 
                                     label dendaHelm : 
-                                        numeric nHargaDenda
-                                        accept nHargaDenda
-                                        compute nKeselurahanDenda as ( nHargaTotal + nHargaDenda ) 
-                                        
-                                        while(nSaldo < nKeselurahanDenda)
-                                        
+                                        numeric nHargaDendaHelm, nDendaSaldo
+                                        accept nHargaDendaHelm, nDendaSaldo
+                                        compute nKeselurahanDenda as ( nHargaTotal + nHargaDendaHelm ) 
+                                    
                                         if(nSaldo > nKeselurahanDenda)
                                             begin 
+                                                compute nPriceEnd as ( nSaldo - nKeselurahanDenda)
 
-                                                if(nStatusHelm == true)
-                                                    begin 
-                                                        compute nPriceEnd as (nKeselurahanDenda - nSaldo)
+                                                display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
 
-                                                        display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
-
-                                                        call mainPage
-                                                    end
-                                                else
-                                                    begin 
-                                                        goto dendaHelm
-                                                    end
-                                                endif
+                                                call mainPage
                                             end
                                         else 
                                             begin 
-                                            // Ini Tambah lagi untuk denda nya mulai dari dendaHelm dan saldoKurang 
+                                                // Ini Tambah lagi untuk denda nya mulai dari dendaHelm dan saldoKurang 
+                                                compute nDendaBayar as (nKeselurahanDenda - nSaldo)
+                                                
+                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti" 
+                                                nSaldo = 0 
+
+                                                call mainPage
                                             end
                                         endif
-
-
-
-
-                                        call mainPage
-
 
                                     label dendaAkhir : 
                                         numeric nHargaDenda
@@ -604,7 +594,7 @@ Psuedocode :
                                         
                                         while(nSaldo > nKeselurahanDenda)
                                             begin 
-                                                compute nPriceEnd as (nKeselurahanDenda - nSaldo)
+                                                compute nPriceEnd as (nSaldo - nKeselurahanDenda)
 
                                                 display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
 
