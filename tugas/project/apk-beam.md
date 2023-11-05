@@ -359,7 +359,7 @@ Psuedocode :
                             
                         end
                         
-                    elseif(nMethodPayment == "2")
+                    elseif(nMethodPayment == "3")
                         begin 
                             numeric nApkDana, nPhoneNumber, nNetwork ,nPin = false
 
@@ -415,7 +415,7 @@ Psuedocode :
                             endif
 
                         end
-                    elseif(nMethodPayment == "3")
+                    elseif(nMethodPayment == "4")
                         begin 
                             numeric nApkOvo, nPopuP, nPin, nSaldoOvo, 
                             boolean nSelect = true
@@ -499,8 +499,9 @@ Psuedocode :
                         switch (nUser)
                             begin 
                                 case akhiri: 
-                                    numeric statusHelm = false, nHargaTotal, nHargaBuka = 1.750, nWaktuMenit 
+                                    numeric nHargaTotal, nHargaBuka = 1.750, nWaktuMenit 
                                     accept nHargaTotal, nHargaBuka, statusHelm, nWaktuMenit
+                                    boolean statusHelm = false
 
                                     display "Silahkan kembalikan helm di tempat"
 
@@ -521,18 +522,37 @@ Psuedocode :
                                         accept nKurangSaldo
 
                                         compute nHargaTotalKeseluruhan as (nHargaTotal - nSaldo - nKurangSaldo )
-                                        
-                                        call mainPage
-
-                                        break
-                                    
-                                    label akhir : 
 
                                         if(nStatusHelm == true)
                                             begin 
-                                                compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti dan tersisa saldo anda" : nSaldo = 0
 
-                                                compute nHargaTotal - nSaldo 
+                                                call mainPage
+                                            end
+                                        else 
+                                            begin 
+                                                numeric nHargaDenda
+                                                accept nHargaDenda
+                                                compute nDendaKeseluruh as (nKurangSaldo + nHargaDenda)
+                                                compute nSaldoKurang as (nDendaKeseluruhan)
+
+                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti dan tersisa saldo anda" : nSaldo = 0
+
+                                                call mainPage
+                                            end
+                                        endif
+                                        
+                                        call mainPage
+
+                                    
+                                    label akhir : 
+
+                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+
+                                        if(nStatusHelm == true)
+                                            begin 
+                                                compute nTarifAkhir as ( nHargaTotal - nSaldo )
+                                                display nTarifAkhir
 
                                                 call mainPage
                                             end
@@ -548,13 +568,34 @@ Psuedocode :
                                         compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka + nHargaDenda ) 
                                         
                                         while(nSaldo < nHargaTotal)
+                                        
+                                        if(nSaldo > nHargaTotal)
                                             begin 
-                                                compute nHargaTotal - nSaldo
 
-                                                display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
+                                                if(nStatusHelm == true)
+                                                    begin 
+                                                        compute nPriceEnd as (nHargaTotal - nSaldo)
 
-                                                call mainPage
+                                                        display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
+
+                                                        call mainPage
+                                                    end
+                                                else
+                                                    begin 
+                                                        goto dendaHelm
+                                                    end
+                                                endif
+
+                                                
                                             end
+                                        else 
+                                            begin 
+                                            // Ini Tambah lagi untuk denda nya mulai dari dendaHelm dan saldoKurang 
+                                            end
+                                        endif
+
+
+
 
                                         call mainPage
 
@@ -566,7 +607,7 @@ Psuedocode :
                                         
                                         while(nSaldo < nHargaTotal)
                                             begin 
-                                                compute nHargaTotal - nSaldo
+                                                compute nPriceEnd as (nHargaTotal - nSaldo)
 
                                                 display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
 
@@ -574,10 +615,6 @@ Psuedocode :
                                             end
 
                                         call mainPage
-
-                                    
-
-                                        
 
                                     break
 
