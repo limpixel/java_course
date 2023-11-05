@@ -219,8 +219,11 @@ Psuedocode :
 
                     while (nBeamNear == nStatusklik) // Di Klik
                         begin 
-                            display statusBerkendara = true ,nBeamId, nBeamBattery, nBeamTraveled, nTarif, nHargaBuka
+                            display nBeamId, nBeamBattery, nBeamTraveled, nTarif, nHargaBuka
+                            boolean statusBerkendara = true
+
                             display "Pindai Untuk Berkendara?"
+                            accept statusBerkendara 
                             
                             if(nUser == statusBerkendara)
                                 begin 
@@ -232,7 +235,8 @@ Psuedocode :
                                 end
                             endif
                         end
-
+                    
+                    goto beamNear
                     
                     break
                 
@@ -262,12 +266,13 @@ Psuedocode :
 
     procedure proPembayaran 
     begin 
-        numeric nSaldo, nMethodPayment, nTopUp, nNominal ,nPromo, nDatabasePromo, nKartu
-        accept nSaldo, nTopUp, nPromo, nDatabasePromo
+        character nMethodPayment
+        numeric nSaldo,nTopUp, nNominal , nDatabasePromo, nKartu
+        accept nSaldo, nMethodPayment, nNominal,nTopUp, nDatabasePromo, nKartu
 
         display nSaldo 
 
-        switch(nMethodPayment, nTopUp, nPromo)
+        switch(nMethodPayment, nTopUp)
             begin 
                 case IsiUlangSaldo : 
 
@@ -278,9 +283,6 @@ Psuedocode :
                     display "Pilih Paket Kredit"
 
                     accept paketKredit
-
-                    
-                        
 
                     display "Pilih MethodPembayaran"
                     display "1. Kartu Kredit "
@@ -330,6 +332,7 @@ Psuedocode :
                                             goto nError
                                         end
                                 end
+                            endif
                         end
                     elseif(nMethodPayment == "2")
                         begin 
