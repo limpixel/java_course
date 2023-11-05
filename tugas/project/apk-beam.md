@@ -536,7 +536,7 @@ Psuedocode :
                                                 accept nHargaDenda
 
                                                 compute nDendaKeseluruhan as (nSaldoKurang + nHargaDenda)
-                                                compute nSaldoCut as (nSaldo - nDendaKeseluruhan)
+                                                
 
                                                 display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti" 
                                                 nSaldo = 0 
@@ -586,22 +586,6 @@ Psuedocode :
                                                 call mainPage
                                             end
                                         endif
-
-                                    label dendaAkhir : 
-                                        numeric nHargaDenda
-                                        accept nHargaDenda
-                                        compute nKeselurahanDenda as ( nHargaTotal + nHargaDenda ) 
-                                        
-                                        while(nSaldo > nKeselurahanDenda)
-                                            begin 
-                                                compute nPriceEnd as (nSaldo - nKeselurahanDenda)
-
-                                                display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
-
-                                                call mainPage
-                                            end
-
-                                        call mainPage
 
                                     break
 
