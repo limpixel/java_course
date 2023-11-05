@@ -505,6 +505,7 @@ Psuedocode :
 
                                     display "Silahkan kembalikan helm di tempat"
 
+                                    compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
 
                                     if(nSaldo <= nHargaTotal)
                                         begin 
@@ -547,8 +548,6 @@ Psuedocode :
                                     
                                     label akhir : 
 
-                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
-
                                         if(nStatusHelm == true)
                                             begin 
                                                 compute nTarifAkhir as ( nHargaTotal - nSaldo )
@@ -565,16 +564,16 @@ Psuedocode :
                                     label dendaHelm : 
                                         numeric nHargaDenda
                                         accept nHargaDenda
-                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka + nHargaDenda ) 
+                                        compute nKeselurahanDenda as ( nHargaTotal + nHargaDenda ) 
                                         
-                                        while(nSaldo < nHargaTotal)
+                                        while(nSaldo < nKeselurahanDenda)
                                         
-                                        if(nSaldo > nHargaTotal)
+                                        if(nSaldo > nKeselurahanDenda)
                                             begin 
 
                                                 if(nStatusHelm == true)
                                                     begin 
-                                                        compute nPriceEnd as (nHargaTotal - nSaldo)
+                                                        compute nPriceEnd as (nKeselurahanDenda - nSaldo)
 
                                                         display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
 
@@ -585,8 +584,6 @@ Psuedocode :
                                                         goto dendaHelm
                                                     end
                                                 endif
-
-                                                
                                             end
                                         else 
                                             begin 
@@ -603,11 +600,11 @@ Psuedocode :
                                     label dendaAkhir : 
                                         numeric nHargaDenda
                                         accept nHargaDenda
-                                        compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka + nHargaDenda ) 
+                                        compute nKeselurahanDenda as ( nHargaTotal + nHargaDenda ) 
                                         
-                                        while(nSaldo < nHargaTotal)
+                                        while(nSaldo > nKeselurahanDenda)
                                             begin 
-                                                compute nPriceEnd as (nHargaTotal - nSaldo)
+                                                compute nPriceEnd as (nKeselurahanDenda - nSaldo)
 
                                                 display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
 
