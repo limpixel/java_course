@@ -279,11 +279,6 @@ Psuedocode :
                     label nError : 
                         display "Harap periksa pilihan nominal dan nominal top up anda"
 
-                    numeric paketKredit
-                    display "Pilih Paket Kredit"
-
-                    accept paketKredit
-
                     display "Pilih MethodPembayaran"
                     display "1. Kartu Kredit "
                     display "2. Shoope Pay "
