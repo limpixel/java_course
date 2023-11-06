@@ -398,16 +398,12 @@ Psuedocode :
                                                 end
                                             else 
                                                 begin 
-                                                    goto LabelSukses
+                                                    display "Pembayaran sukses"
                                                 end
-                                            endif
-
-                                            label LabelSukses: 
-                                                display "Pembayaran sukses"
+                                            endif             
 
                                             call mainPage
                                         end
-
                                     else 
                                         begin 
                                             display "Input pin dengan benar"
