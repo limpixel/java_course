@@ -380,6 +380,10 @@ Psuedocode :
 
                             if(nPhoneNumber == true)                    
                                 begin 
+                                    
+                                    label nErrorPin : 
+                                        display "Input pin dengan benar"
+
                                     display "Input pin anda"
                                     
                                     
@@ -401,14 +405,14 @@ Psuedocode :
                                                     display "Pembayaran sukses"
                                                 end
                                             endif             
-
-                                            call mainPage
                                         end
                                     else 
                                         begin 
-                                            display "Input pin dengan benar"
+                                            goto nErrorPin
                                         end
                                     endif
+
+                                    call mainPage
                                 end
                             else
                                 begin 
@@ -431,12 +435,18 @@ Psuedocode :
                             if(nPopUp == nSelect) // ketika user klik pop upnya
                                 begin 
 
-                                    numeric nConfirm, nAvg
+                                    numeric nAvg
+                                    boolean nConfirm = false
 
                                     display nNominal
 
+                                    label nFalsConfirm: 
+                                        display "harap coba lagi"
+
                                     display "Harap konfirmasi pembayaran"
                                     accept nConfirm
+
+                                    
 
                                     if(nConfirm == true )
                                         begin 
@@ -457,7 +467,8 @@ Psuedocode :
                                         end
                                     else
                                         begin
-                                            display "Harap coba lagi"
+                                            goto nFalsConfirm
+
                                         end
                                     endif
                                 end
