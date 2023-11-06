@@ -351,7 +351,7 @@ Psuedocode :
 
                                             call mainPage
                                         end
-                                    else if (nStatus == "pending")
+                                    elseif (nStatus == "pending")
                                         begin 
                                             display "Harap tunggu beberapa saat"                                            
                                         end
@@ -359,7 +359,11 @@ Psuedocode :
                                         begin 
                                             display "Harap kirimkan bukti pembayaran anda di bawah kolom ini"
                                         end
+                                    endif
+
                                 end 
+                            
+                            call mainPage
                             
                         end
                         
