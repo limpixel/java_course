@@ -313,14 +313,19 @@ Psuedocode :
                                 end
                             else 
                                 begin 
+                                    numeric nNomimal
+                                    boolean nStatus = true
+                                    display "Masukkan jumlah top up"
+                                    accept nNominal
+
                                     display "Confirm Payment in Your Card"
                                     
-                                    numeric nNomimal, nStatus = true
 
 
                                     if(nTopup == nNominal)
                                         begin 
                                             display "Pembayaran Berhasil"
+                                            call mainPage
                                         end
                                     else 
                                         begin 
@@ -342,9 +347,9 @@ Psuedocode :
                                 begin 
                                     if(nStatus == "terbayarkan")
                                         begin 
-                                            display "Saldo beam anda sudah terisis"
+                                            display "Saldo beam anda sudah terisi"
 
-                                            call proPembayaran
+                                            call mainPage
                                         end
                                     else if (nStatus == "pending")
                                         begin 
@@ -398,7 +403,7 @@ Psuedocode :
                                             label LabelSukses: 
                                                 display "Pembayaran sukses"
 
-                                            call proPembayaran
+                                            call mainPage
                                         end
 
                                     else 
@@ -444,7 +449,7 @@ Psuedocode :
 
                                                     display "pembayran telah berhasil"
 
-                                                    call proPembayaran
+                                                    call mainPage
                                                 end
                                             else 
                                                 begin 
@@ -462,7 +467,7 @@ Psuedocode :
                         end
                     else
                         begin 
-                            call proPembayaran
+                            call mainPage
                         end
                     endif
                     
