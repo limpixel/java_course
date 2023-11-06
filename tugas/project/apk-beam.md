@@ -295,19 +295,20 @@ Psuedocode :
                                 begin 
                                    call Active (nNomorKartu, nExpiredDate, nCVV, nNameOwner)
 
-                                    label Error : 
+                                    label kartuError : 
                                         display "harap periksa kembali kartu anda"
 
                                    call InputKartu (nNomorKartu, nExpiredDate, nCVV, nNameOwner)
 
                                    display "simpan kartu debit"
-                                   if(InputKartu == "true" )
+
+                                   if(InputKartu == true )
                                         begin 
                                             call mainPage
                                         end
                                     else
                                         begin 
-                                            goto Error
+                                            goto kartuError
                                         end
                                     endif
                                 end
@@ -319,8 +320,6 @@ Psuedocode :
                                     accept nNominal
 
                                     display "Confirm Payment in Your Card"
-                                    
-
 
                                     if(nTopup == nNominal)
                                         begin 
@@ -340,7 +339,7 @@ Psuedocode :
                             numeric ApkShoopie = true
                             accept AphkShoopie
 
-                            numeric nStatus
+                            boolean nStatus = false
                             display "Confirm Payment in Shoopie Pay"
 
                             while (ApkShoopie == true)
