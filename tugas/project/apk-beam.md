@@ -333,13 +333,14 @@ Psuedocode :
                                     endif
                                 end
                             endif
+
+                            call mainPage
                         end
                     elseif(nMethodPayment == "2")
                         begin 
-                            numeric ApkShoopie = true
-                            accept AphkShoopie
+                            boolean ApkShoopie = true, nStatus = false
+                            accept AphkShoopie, nStatus
 
-                            boolean nStatus = false
                             display "Confirm Payment in Shoopie Pay"
 
                             while (ApkShoopie == true)
@@ -359,7 +360,6 @@ Psuedocode :
                                             display "Harap kirimkan bukti pembayaran anda di bawah kolom ini"
                                         end
                                     endif
-
                                 end 
                             
                             call mainPage
@@ -368,7 +368,8 @@ Psuedocode :
                         
                     elseif(nMethodPayment == "3")
                         begin 
-                            numeric nApkDana, nPhoneNumber, nNetwork ,nPin = false
+                            numeric nApkDana, nPhoneNumber, nNetwork 
+                            boolean nPin = false
 
                             label InputNomorSalah: 
                                 display "Masukkan Nomor telfon anda dengan benar"
@@ -376,8 +377,6 @@ Psuedocode :
                             display "Input Nomor Dana Anda"
 
                             accept  nApkDana, nPhoneNumber, nNetwork ,nPin
-
-                            
 
                             if(nPhoneNumber == true)                    
                                 begin 
