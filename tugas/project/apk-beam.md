@@ -10,15 +10,19 @@
 
 Psuedocode
 ```
+    procedure login_Option
+
     procedure pageWelcome
+
     begin 
-        character nOtpion
-        boolean nStatusklik = true
-        accept nOtpion, nStatusklik
+
+        boolean Click 
+        accept Click
         
         display "Selamat datang di Beam & Lanjutkan ke login"
+        display "Tombol : Lanjutkan untuk login"
 
-        if(nOption == nStatusKlik)
+        if(Click = true)
             begin 
                 display "Lanjutkan untuk login "
                 call login_Option
@@ -39,11 +43,13 @@ Flowchart :
 ### OPTION LOGIN PSUEDOCODE
 
 ```
+    function funLogin_Phone
+
     procedure login_Option
     begin 
         boolean statusKlik = true
         accept statusKlik
-        switch(statusKlik)
+        switch(loginGoogle, numberPhone)
             begin 
                 case loginGoogle : 
                     call proLogin_Google
@@ -264,7 +270,7 @@ Psuedocode :
     proceudre Active (input character, input numeric, input numeric, input character)
 
 
-    procedure proPembayaran 
+    procedure proTopUp 
     begin 
         character nMethodPayment
         numeric nSaldo,nTopUp, nNominal , nDatabasePromo, nKartu
@@ -461,14 +467,14 @@ Psuedocode :
                                                 end
                                             else 
                                                 begin 
-                                                    display "Harap isi terlebih dahul usaldo anda"
+                                                    display "Harap isi terlebih dahul saldo anda"
+                                                    call proPembayaran
                                                 end
                                             endif
                                         end
                                     else
                                         begin
                                             goto nFalsConfirm
-
                                         end
                                     endif
                                 end
@@ -494,131 +500,99 @@ Psuedocode :
 ### QR CODE & DAN PENYEWAAN BEAM SEKALIGUS PEMBAYARAN
 
 ```
-    procedure nQrCode
-    begin 
-        numeric nCamera, nQrID, nBeamID, nWaktu, nTarif, 
-        boolean nStatusHelm = false ,nBeamStatus = false
+procedure QrCode
+begin 
+    numeric nQRID, nBeamID, nWaktu, nTarif, nSaldo
+    bolean statusHelm = true, BeamStatus = false 
 
-        display "Scan QR Pada Beam"
-        accept nCamera, nQrID, nBeamID, nWaktu, nTarif, nBeamStatus
-        
-        if(nSaldo >= "Rp 20.000")
-            begin 
-                if (nQrID == nBeamID )
-                    begin 
-                        <!-- display nBeamStatus, nTarif, nWaktu,  -->
+    label qrError: 
+        display "QR Beam dan ID Beam tidak cocok, harap coba lagi"
 
-                        // Switch Akhiri atau lanjut
-                        switch (nUser)
-                            begin 
-                                case akhiri: 
-                                    numeric nHargaTotal, nHargaBuka = 1.750, nWaktuMenit 
-                                    accept nHargaTotal, nHargaBuka, statusHelm, nWaktuMenit
-                                    boolean statusHelm = false
+    display "Scan QR Pada Beam"
+    accept nQRID, nBeamID, nWaktu, nTarif, statusHelm, BeamStatus, nSaldo
 
-                                    display "Silahkan kembalikan helm di tempat"
+    if (nQrID == nBeamID )
+        begin 
+            if(nSaldo >= 20000)
+                begin 
+                    label DisplayPerjalanan : 
+                        Display "Anda sedang dalam perjalanan"
 
-                                    compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+                    display BeamStatus, nTarif, nWaktu
+                    
+                    boolean statusPerjalan = false
+                    
+                    display "Button : Akhiri Perjalanan?"
 
-                                    if(nSaldo <= nHargaTotal)
-                                        begin 
-                                            goto saldoKurang
-                                        end
-                                    else
-                                        begin 
-                                            goto akhir
-                                        end
-                                    endif
+                    accept statusPerjalan
+
+                    if(statusPerjalan == true)
+                        begin 
+                            numeric nHargaTotal, nHargaBuka = 1750, nWaktuMenit 
+                            boolean statusHelm = false
+                            accept nHargaTotal, nHargaBuka, nWaktuMenit
+
+                            display "Silahkan kembalikan helm ke tempatnya"
+
+                            accept statusHelm
+
+                            if(statusHelm == true)
+                                begin 
+                                    goto ComputeAkhir
+                                end
+                            else
+                                begin 
+                                    goto DendaHelm
+                                end
+                            endif
+                            
+                            label DendaHelm: 
+
+                            label ComputeAkhir: 
+                                compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+
+                                numeric nTarifAkhir
+                                accept nTarifAkhir
+
+                                compute nTarifAkhir as ( nSaldo - nHargaTotal )
+                                display nTarifAkhir
 
 
-                                    label saldoKurang : 
-                                        numeric nKurangSaldo
-                                        accept nKurangSaldo
+                            label DendaHelm : 
+                                compute nHargaTotal as ( nHarga * nWaktuMenit + nHargaBuka ) 
+                                
+                                numeric nTarif ,nDendaHelm ,nHargaDendaHelm = 75000
+                                accept nTarif, nDendaHelm ,nHargaDendaHelm
 
-                                        compute nSaldoKurang as ( nSaldo - nHargaTotal)
-                                        
-                                        if(nStatusHelm == true)
-                                            begin
-                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti" 
-                                                nSaldo = 0 
-                                                call mainPage
-                                            end
-                                        else 
-                                            begin 
-                                                numeric nHargaDenda
-                                                accept nHargaDenda
+                                compute nDendaHelm as (nHargaDendaHelm + nHargaTotal )
+                                compute nDendaHelm as (nSaldo - nDendaHelm)
 
-                                                compute nDendaKeseluruhan as (nSaldoKurang + nHargaDenda)
-                                                
+                                display nDendaHelm
 
-                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti" 
-                                                nSaldo = 0 
-                                                call mainPage
-                                            end
-                                        endif
+                            
+                            call mainPage
 
-                                        
 
-                                    
-                                    label akhir : 
-
-                                        if(nStatusHelm == true)
-                                            begin 
-                                                compute nTarifAkhir as ( nSaldo - nHargaTotal )
-                                                display nTarifAkhir
-
-                                                call mainPage
-                                            end
-                                        else
-                                            begin 
-                                                goto dendaHelm
-                                            end
-                                        endif
-
-                                    label dendaHelm : 
-                                        numeric nHargaDendaHelm, nDendaSaldo
-                                        accept nHargaDendaHelm, nDendaSaldo
-                                        compute nKeselurahanDenda as ( nHargaTotal + nHargaDendaHelm ) 
-                                    
-                                        if(nSaldo > nKeselurahanDenda)
-                                            begin 
-                                                compute nPriceEnd as ( nSaldo - nKeselurahanDenda)
-
-                                                display nSaldo // kondisi saldo langsung kepotong meskipun kurang dari harga denda
-
-                                                call mainPage
-                                            end
-                                        else 
-                                            begin 
-                                                // Ini Tambah lagi untuk denda nya mulai dari dendaHelm dan saldoKurang 
-                                                compute nDendaBayar as (nKeselurahanDenda - nSaldo)
-                                                
-                                                display "saldo anda kurang, saldo anda akan dipotong saat melakukan top up nanti" 
-                                                nSaldo = 0 
-
-                                                call mainPage
-                                            end
-                                        endif
-
-                                    break
-
-                                default : 
-                                    display nBeamStatus, nTarif, nWaktu
-                            end // end switch    
-                    end // endif begin
-                else 
-                    begin 
-                        display "QR Tidak Cocok "
-                    end
-                endif // endif nQrCode == nBeamID
-            end
-        else 
-            begin
-                display "Saldo harus di atas 20.000 dan Harap isi saldo anda"
-                call proPembayaran
-            end
-        endif // endif nSaldo >= "Rp 20.000"
-    end 
+                        end
+                    else 
+                        begin 
+                            goto DisplayPerjalanan
+                        end
+                    endif
+                end
+            else
+                begin 
+                    display "Saldo harus di atas Rp 20.000"
+                    call proPembayaran
+                end
+            endif
+        end
+    else
+        begin
+            goto qrError
+        end
+    endif
+end
 ```
 
 
@@ -628,31 +602,32 @@ Psuedocode :
 ```
     procedure proAccount
     begin 
-        character nEmail, nfirstName, nLastName, nOption, nHapusAkun
-        accept nEmail, nfirstName, nLastName, nOption, nHapusAkun
+        character cEmail, cfirstName, cLastName, cOption, cHapusAkun
+        accept cEmail, cfirstName, cLastName, cOption, cHapusAkun
     
+        display "1. Profile"
+        display "2. Riwayat Berkendara"
 
         switch(nOption)
             begin 
-                case cProfile : 
-                    
+                case 1 :    
+
                     label nDisplayProfile: 
                         display "Ini Adalah profile anda"
 
-                    display nfirstName, nLastName,nEmail, nHapusAkun
+                    display cEmail, cfirstName, cLastName,
                     
-                    boolean nStatusOptionHapusAkun = true
+                    boolean nStatusOptionHapusAkun = false
                     accept nStatusOptionHapusAkun
 
-                    if( nHapusAkun == nStatusOptionHapusAkun )
+                    if( nStatusOptionHapusAkun == true )
                         begin 
-                            character nOptionAlasan, nInputAlasanLainya = false
-                            accept nInputAlasanLainya 
-                            
-                            // list alasan
-                            display "Input alasan anda"
+                            character cOptionAlasan
 
-                            accept nOptionAlasan
+                            // display alasan menghapus akun anda
+                            display "Input alasan mengapa menghapus akun anda"
+
+                            accept cOptionAlasan 
 
                             call pageWelcome
                         end
@@ -664,58 +639,35 @@ Psuedocode :
 
                     break
 
-                case cRiwayat : 
-                    character nTanggal, nPukul, nWaktu, nTotalHarga, nDurasi, nPaymentMethod, nRiwayatDetailButton
-                    boolean statusKlik = true
-                    accept nTanggal, nPukul, nWaktu, nTotalHarga, nDurasi, statusKlik, nPaymentMethod, nRiwayatDetailButton
+                case 2 : 
+                    character cTanggal, cPukul, cWaktu, cDurasi, cPaymentMethod, cRiwayatDetailButton, cRiwayat, cResiDetail
+                    numeric nTotalHarga
+                    boolean statusKlik = false
+                    accept cTanggal, cPukul, cWaktu, nTotalHarga, cDurasi, statusKlik, cPaymentMethod, cRiwayatDetailButton, cRiwayat, cResiDetail
 
-                    compute nResi as (nTotalHarga, nPaymentMethod)
-                    compute nRiwayat as (nTanggal, nPukul, nWaktu, nTotalHarga, nDurasi) 
+                    // ini merupakan cRiwayat biasa
+                    compute cRiwayat as ( cTanggal, cPukul, cWaktu, nTotalHarga, cDurasi) 
                     
                     label nBackRiwayat:
                         display "Riwayat Terakhir anda"
 
-                    display nRiwayatDetailButton
+                    display cRiwayat
 
-                    while(nRiwayatDetailButton == statusKlik)
+                    display "Detail Resi Perjalanan"
+
+                    while( statusKlik == true)
                         begin 
-                            character nResi, nBack
-                            accept nResi
-
-                            label nDetailRiwayat: 
-                                display "Ini detail riwayat anda"
-
-                            display "Detail perjalanan"
-                            display nRiwayat
-                            display nResi
-
-                            if(nResi == statusKlik)
-                                begin 
-                                    display nResi
-                                end
-                            elseif (nBack == statusKlik)
-                                begin 
-                                    goto nBackRiwayat
-                                end
-                            else 
-                                begin 
-                                    goto nDetailRiwayat
-                                end
-                            endif
+                            display "berikut detail perjalanan"
+                            display cWaktu, nTotalHarga, 
                         end
 
                     call proAccount
 
                     break
-                    
-
-                case cLogout : 
-                    call pageWelcome
-                    break
                 
                 default: 
+                    display "Ini adlaah page profile anda"
                     call proAccount
-                
             end
         
 
